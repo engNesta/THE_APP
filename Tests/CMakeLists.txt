@@ -10,11 +10,15 @@ add_subdirectory(Catch2)
 
 juce_add_console_app(The_App_Test PRODUCT_NAME "The_App_Test")
 
+juce_generate_juce_header(The_App_Test)
+
 target_sources(The_App_Test PRIVATE MainComponentTest.cpp)
 
 target_compile_definitions(The_App_Test PRIVATE
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0)
+
+target_include_directories(The_App_Test PRIVATE ../Source/)
 
 target_link_libraries(The_App_Test PRIVATE
         Catch2WithMain
@@ -22,5 +26,6 @@ target_link_libraries(The_App_Test PRIVATE
         juce_recommended_lto_flags
         juce_recommended_warning_flags
         juce_core
-        juce_gui_basics)
+        juce_gui_basics
+        juce_graphics)
 
