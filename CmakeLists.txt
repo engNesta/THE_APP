@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 
 project(THE_APP)
 
-add_subdirectory(JUCE-7.0.3 JUCE)
+add_subdirectory(Tools/JUCE-7.0.3 JUCE)
 
 juce_add_gui_app(THE_APP
         VERSION 0.0.1
@@ -13,8 +13,8 @@ juce_generate_juce_header(THE_APP)
 
 target_sources(THE_APP
     PRIVATE
-        Main.cpp
-        MainComponent.cpp)
+        Source/Main.cpp
+        Source/MainComponent.cpp)
 
 target_compile_definitions(THE_APP
     PRIVATE
@@ -36,4 +36,9 @@ target_link_libraries(THE_APP
         juce::juce_recommended_warning_flags
         juce::juce_recommended_lto_flags)
 
+option(BUILD_UNIT_TESTS "Build JUCE prototype examples" ON)
 
+if (BUILD_UNIT_TESTS)
+    enable_testing()
+    add_subdirectory(Tests)
+endif()
